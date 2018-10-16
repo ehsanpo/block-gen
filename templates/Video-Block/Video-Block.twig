@@ -1,0 +1,7 @@
+<section class="video-block"> 
+	{% if video %}
+		<video class="video video-poster" autoplay loop muted {% if preview_image  %}poster="{{preview_image.url}}"{% endif %}>
+			<source src="{{ video.url }}" type="{{ video.mime_type}}">
+		</video>
+	{% endif %}
+</section>

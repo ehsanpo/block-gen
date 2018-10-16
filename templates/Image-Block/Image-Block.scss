@@ -1,0 +1,14 @@
+.image-block{
+	
+	background-size: cover;
+	background-position: center;
+	.content{
+		
+		&.big-padding{
+			padding: $block_pad*2 0;
+		}
+		&.small-padding{
+			padding: $block_pad 0;
+		}
+	}
+}

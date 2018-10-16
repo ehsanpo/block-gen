@@ -27,7 +27,7 @@ class text_block extends TwigBlock {
 		);
 		$fields[] = array(
 			'key' => 'field_5afd4653014e6',
-			'label' => 'stn_block',
+			'label' => 'Column',
 			'name' => 'stn_block',
 			'_name' => 'stn_block',
 			'type' => 'repeater',
@@ -47,7 +47,7 @@ class text_block extends TwigBlock {
 			'sub_fields' => array (
 				array (
 					'key' => 'field_5afd4671014e7',
-					'label' => 'Body text',
+					'label' => 'Text',
 					'name' => 'body_text',
 					'_name' => 'body_text',
 					'type' => 'wysiwyg',
