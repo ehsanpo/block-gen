@@ -3,9 +3,12 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const theme_path = "/public_html/theme/";
 const prependFile = require("prepend-file");
+var npmi = require('npmi');
+var path = require('path');
 
 const CURR_DIR = process.cwd();
-const CHOICES = fs.readdirSync(`${__dirname}/templates`);
+let  CHOICES = fs.readdirSync(`${__dirname}/templates`);
+CHOICES  = CHOICES.push('js-installer');
 
 if (!fs.existsSync(`${process.cwd()}/public_html`)) {
 	console.log("wrong dir");
@@ -37,9 +40,15 @@ inquirer.prompt(QUESTIONS).then(answers => {
 	const projectName = answers["project-name"];
 	const templatePath = `${__dirname}/templates/${projectChoice}`;
 
+	if (projectChoice == 'js-installer') {
+		install_js_libs();
+	}
+	else{
+		createDirectoryContents(templatePath, projectName, projectChoice);
+	}
 	//fs.mkdirSync(`${CURR_DIR}/${projectName}`);
 
-	createDirectoryContents(templatePath, projectName, projectChoice);
+	
 });
 
 function logall(verb) {
@@ -106,6 +115,30 @@ function createDirectoryContents(templatePath, newProjectPathm, projectChoice) {
 			}
 		);
 	}
+}
+function install_js_libs(){
+
+ var options = {
+    name: 'slick-carousel',	// your module name
+    version: 'latest',		// expected version [default: 'latest']
+    path: copy_to + "assets",				// installation path [default: '.']
+    forceInstall: false,	// force install if set to true (even if already installed, it will do a reinstall) [default: false]
+    npmLoad: {				// npm.load(options, callback): this is the "options" given to npm.load()
+        loglevel: 'silent'	// [default: {loglevel: 'silent'}]
+    }
+};
+npmi(options, function (err, result) {
+    if (err) {
+        if 		(err.code === npmi.LOAD_ERR) 	console.log('npm load error');
+        else if (err.code === npmi.INSTALL_ERR) console.log('npm install error');
+        return console.log(err.message);
+    }
+ 
+    // installed
+    console.log(options.name+'@'+options.version+' installed successfully in '+path.resolve(options.path));
+});
+
+
 }
 
 function copyFile(source, target, cb) {
