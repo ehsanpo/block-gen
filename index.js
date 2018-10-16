@@ -121,7 +121,7 @@ function install_js_libs(){
  var options = {
     name: 'slick-carousel',	// your module name
     version: 'latest',		// expected version [default: 'latest']
-    path: copy_to + "assets",				// installation path [default: '.']
+    path: '.',				// installation path [default: '.']
     forceInstall: false,	// force install if set to true (even if already installed, it will do a reinstall) [default: false]
     npmLoad: {				// npm.load(options, callback): this is the "options" given to npm.load()
         loglevel: 'silent'	// [default: {loglevel: 'silent'}]
