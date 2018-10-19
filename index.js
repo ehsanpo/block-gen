@@ -55,7 +55,8 @@ function logall(verb) {
 
 function createDirectoryContents(templatePath, newProjectPathm, projectChoice) {
 	const filesToCreate = fs.readdirSync(templatePath);
-	file_to_copy =__dirname + "/templates/" + projectChoice + "/" + projectChoice;
+	file_to_copy =
+		__dirname + "/templates/" + projectChoice + "/" + projectChoice;
 
 	//copy php
 	copyFile(
@@ -72,19 +73,18 @@ function createDirectoryContents(templatePath, newProjectPathm, projectChoice) {
 	);
 
 	//install scs
-	check_scss(projectChoice,file_to_copy)
+	check_scss(projectChoice, file_to_copy);
 
 	//install js
-	check_js(projectChoice,file_to_copy);
+	check_js(projectChoice, file_to_copy);
 
 	//install npm librarys
 	check_package_json(projectChoice);
 
 	//copy img folder
 	check_img(projectChoice);
-
 }
-function check_scss(projectChoice,file_to_copy){
+function check_scss(projectChoice, file_to_copy) {
 	// //copy scss
 	copyFile(
 		file_to_copy + ".scss",
@@ -103,8 +103,7 @@ function check_scss(projectChoice,file_to_copy){
 	);
 }
 
-function check_js(projectChoice,file_to_copy){
-
+function check_js(projectChoice, file_to_copy) {
 	// //copy js if
 	if (fs.existsSync(file_to_copy + ".js")) {
 		copyFile(
@@ -127,22 +126,18 @@ function check_js(projectChoice,file_to_copy){
 			}
 		);
 	}
-
 }
 
-function check_img(projectChoice){
+function check_img(projectChoice) {
 	const path = `${__dirname}/templates/${projectChoice}/img`;
-	
+
 	if (fs.existsSync(path)) {
 		let images = fs.readdirSync(path);
 		let img;
-		//console.log(images);
-		//copyFile(source, target, cb)
 		for (var i = 0; i < images.length; i++) {
-			img = path + '/' + images[i] ;
-			copyFile(img, copy_to + "assets/img/" + images[i], logall)
+			img = path + "/" + images[i];
+			copyFile(img, copy_to + "assets/img/" + images[i], logall);
 		}
-
 	}
 }
 
@@ -151,52 +146,57 @@ function check_package_json(projectChoice) {
 
 	if (fs.existsSync(path)) {
 		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
-		// for (var k in obj.dependencies) {
-		// 	install_js_libs(k);
-		// }
-		//console.log(__dirname + '/node_modules/bootstrap/dist');
-		
-		
-		//check extras
-		if (obj && obj.extra && typeof obj.extra !== 'undefined') {
+		for (var k in obj.dependencies) {
+			install_js_libs(k);
+		}
 
-			for (var k in obj.extra ) {
-				console.log(k);
-				if (k == 'scss') {
+		//check extras
+		if (obj && obj.extra && typeof obj.extra !== "undefined") {
+			for (var k in obj.extra) {
+			
+				if (k == "scss") {
 					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.scss}`;
 
 					// //copy scss
 					copyFile(
-						file_to_copy ,
-						copy_to + "assets/sass/blocks/" + projectChoice.toLowerCase() + "-npm.scss",
+						file_to_copy,
+						copy_to +
+							"assets/sass/blocks/" +
+							projectChoice.toLowerCase() +
+							"-npm.scss",
 						logall
 					);
 
 					//add css to file main.
 					fs.appendFile(
 						copy_to + "assets/sass/main.scss",
-						'\r\n@import "blocks/' + projectChoice.toLowerCase() + '-npm.scss"; \r\n ',
+						'\r\n@import "blocks/' +
+							projectChoice.toLowerCase() +
+							'-npm.scss"; \r\n ',
 						function(err) {
 							if (err) throw err;
 							console.log("Saved!");
 						}
 					);
-				}
-				else if(k == 'css'){
-					
-					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.css}`
+				} else if (k == "css") {
+					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.css}`;
 
 					// //copy scss
 					copyFile(
-						file_to_copy ,
-						copy_to + "assets/sass/blocks/" + projectChoice.toLowerCase() + "-npm.scss",
+						file_to_copy,
+						copy_to +
+							"assets/sass/blocks/" +
+							projectChoice.toLowerCase() +
+							"-npm.scss",
 						logall
 					);
 
 					//add css to file main.
 					fs.appendFile(
 						copy_to + "assets/sass/main.scss",
-						'\r\n@import "blocks/' + projectChoice.toLowerCase() + '-npm.scss"; \r\n ',
+						'\r\n@import "blocks/' +
+							projectChoice.toLowerCase() +
+							'-npm.scss"; \r\n ',
 						function(err) {
 							if (err) throw err;
 							console.log("Saved!");
@@ -204,8 +204,6 @@ function check_package_json(projectChoice) {
 					);
 				}
 			}
-
-
 		}
 	}
 }
