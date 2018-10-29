@@ -1,9 +1,9 @@
 <?php
 
-class ImageSlider extends TwigBlock {
+class image_slider extends TwigBlock {
 	function __construct() {
-		$this->id = 'ImageSlider';
-		$this->name = 'Image Slider Block';
+		$this->id = 'Image-slider';
+		$this->name = 'Image Slider';
 
 		parent::__construct();
 	}
@@ -106,4 +106,4 @@ class ImageSlider extends TwigBlock {
 	}
 }
 
-new ImageSlider();
+new image_slider();

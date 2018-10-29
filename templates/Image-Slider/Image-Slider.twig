@@ -1,0 +1,11 @@
+<section class="image-slider-block">
+	<div class="slider">
+		{% for item in ImageSlider_Images %}
+			<div>
+				<a href="{{item.link}}">
+					<img src="{{item.Image}}" alt="">
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+</section>
