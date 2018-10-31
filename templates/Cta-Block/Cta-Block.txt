@@ -1,0 +1,15 @@
+## Needs:
+	
+	
+### Classes:
+	@extend %block-pad;
+	.wrapper
+	.wrapper-m
+	.v-center
+	
+### Supports:
+	BG & text color
+
+
+
+

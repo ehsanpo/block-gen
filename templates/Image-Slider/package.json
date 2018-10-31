@@ -4,6 +4,7 @@
 		"slick-carousel": "^1.8.1"
 	},
 	"extra":{
-		"scss": "slick-carousel/slick/slick.scss"
+		"scss": "slick-carousel/slick/slick.scss",
+		"stylish": true
 	}
 }

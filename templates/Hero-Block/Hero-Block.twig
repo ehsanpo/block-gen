@@ -1,7 +1,8 @@
-<section class="hero-block" {% if background_image %} style="background-image:url('{{background_image}}') " {% endif %}>
+<section class="hero-block {% if class %}{{class}}{% endif %}" 
+	{% if background_image %} style="background-image:url('{{background_image}}') "{% endif %}>
 	<div class="wrapper">
 		<div class="wrapper-m">
-			<div class="v_center">
+			<div class="v-center">
 				{% if title %}
 					<h1>{{title}}</h1>
 				{% endif %}

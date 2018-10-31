@@ -1,4 +1,5 @@
 .cta-block{
+	@extend %block-pad;
 	text-align: center;
 	.box-content{
 		width: 552px;

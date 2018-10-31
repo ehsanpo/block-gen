@@ -1,0 +1,10 @@
+## Needs:
+	Mailchimp embed form
+	@extend %block-pad;
+	
+### Classes:
+	.grid--auto-c
+	.wrapper
+
+### Supports:
+	BG & text color

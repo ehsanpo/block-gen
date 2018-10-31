@@ -1,20 +1,21 @@
-.links-block{
+.links-block {
 	@extend %block-pad;
 	text-align: center;
-	img{
+	img {
 		padding-bottom: 32px;
-		&.is_icon{
-			width: 48px!important;
+		&.is_icon {
+			width: 48px !important;
 		}
 	}
-	.link{
+	.link {
 		margin-bottom: 64px;
-		@include bp-medium{
+		@include bp-medium {
 			margin-bottom: 0;
 		}
 	}
-	.content{
-		p{
+	.content {
+		padding: 0 16px;
+		p {
 			margin-bottom: 16px;
 		}
 	}

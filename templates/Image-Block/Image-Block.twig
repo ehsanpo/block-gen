@@ -1,8 +1,7 @@
-<section class="image-block" style="background-image:url({{image}})">
+<section class="image-block {% if class %}{{class}}{% endif %} {{image_padding}}" {% if image %}style="background-image:url({{image}})"{% endif %}>
 	{% if body_text %}
 		<div class="wrapper">
-			<h3 class="content {{image_padding}}">{{body_text}}</h3>
+			<h3>{{body_text}}</h3>
 		</div>
 	{% endif %}
 </section>
-

@@ -1,0 +1,9 @@
+## Needs:
+    @include bp-medium
+    @extend %bg_cover;
+    
+### Classes:
+    .wrapper
+
+### Supports:
+    BG & text color

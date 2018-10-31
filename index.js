@@ -24,36 +24,35 @@ const QUESTIONS = [
 		message: "What project template would you like to generate?",
 		choices: CHOICES
 	},
-	{
-		name: "project-name",
-		type: "input",
-		message: "Project name:",
-		validate: function(input) {
-			if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-			else
-				return "Project name may only include letters, numbers, underscores and hashes.";
-		}
-	}
+	// {
+	// 	name: "project-name",
+	// 	type: "input",
+	// 	message: "Project name:",
+	// 	validate: function(input) {
+	// 		if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
+	// 		else
+	// 			return "Project name may only include letters, numbers, underscores and hashes.";
+	// 	}
+	// }
 ];
 
 inquirer.prompt(QUESTIONS).then(answers => {
 	const projectChoice = answers["project-block"];
-	const projectName = answers["project-name"];
+	//const projectName = answers["project-name"];
 	const templatePath = `${__dirname}/templates/${projectChoice}`;
 
 	if (projectChoice == "js-installer") {
 		check_package_json(projectChoice);
 	} else {
-		createDirectoryContents(templatePath, projectName, projectChoice);
+		createDirectoryContents(templatePath, projectChoice);
 	}
-	//fs.mkdirSync(`${CURR_DIR}/${projectName}`);
 });
 
 function logall(verb) {
 	console.log(verb);
 }
 
-function createDirectoryContents(templatePath, newProjectPathm, projectChoice) {
+function createDirectoryContents(templatePath, projectChoice) {
 	const filesToCreate = fs.readdirSync(templatePath);
 	file_to_copy =
 		__dirname + "/templates/" + projectChoice + "/" + projectChoice;
@@ -115,7 +114,7 @@ function check_js(projectChoice, file_to_copy) {
 		const js_class = projectChoice.toLowerCase().replace("-", "");
 		prependFile(
 			copy_to + "assets/scripts/main.js",
-			`import ${js_class} from "${projectChoice.toLowerCase()}.js"; \r\n"`,
+			`import ${js_class} from "./${projectChoice.toLowerCase()}.js"; \r\n`,
 			function(err) {
 				if (err) {
 					// Error
@@ -134,6 +133,8 @@ function check_img(projectChoice) {
 	if (fs.existsSync(path)) {
 		let images = fs.readdirSync(path);
 		let img;
+		//console.log(images);
+		//copyFile(source, target, cb)
 		for (var i = 0; i < images.length; i++) {
 			img = path + "/" + images[i];
 			copyFile(img, copy_to + "assets/img/" + images[i], logall);
@@ -149,11 +150,12 @@ function check_package_json(projectChoice) {
 		for (var k in obj.dependencies) {
 			install_js_libs(k);
 		}
+		
 
 		//check extras
 		if (obj && obj.extra && typeof obj.extra !== "undefined") {
 			for (var k in obj.extra) {
-			
+				console.log(k);
 				if (k == "scss") {
 					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.scss}`;
 
@@ -197,6 +199,17 @@ function check_package_json(projectChoice) {
 						'\r\n@import "blocks/' +
 							projectChoice.toLowerCase() +
 							'-npm.scss"; \r\n ',
+						function(err) {
+							if (err) throw err;
+							console.log("Saved!");
+						}
+					);
+				}
+				else if(k == "stylish"){
+
+					fs.appendFile(
+						copy_to + "lib/block_style.php",
+						"\r\n add_filter('acf/section/styles/" +projectChoice.toLowerCase() +"', $layout_styles); \r\n ",
 						function(err) {
 							if (err) throw err;
 							console.log("Saved!");

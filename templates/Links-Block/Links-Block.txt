@@ -1,0 +1,10 @@
+## Needs:
+	@extend %block-pad
+	@include bp-medium
+	
+### Classes:
+	.grid--auto-c
+	.wrapper
+
+### Supports:
+	BG & text color

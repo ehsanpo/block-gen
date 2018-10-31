@@ -1,11 +1,17 @@
-<section class="image-slider-block">
-	<div class="slider">
-		{% for item in ImageSlider_Images %}
-			<div>
-				<a href="{{item.link}}">
-					<img src="{{item.Image}}" alt="">
+<section class="slider-block"> 
+		<div class="slider">
+			{% for item in slides %}
+				<a class="slides lazyload" href="{{item.link}}" data-bg="{{item.image.url|resize(936)}}">
+					{% if item.headline %}
+						<div class="v-center" >
+							<div class="desc">
+								<time>{{item.date}}</time>
+								<h2>{{item.headline}}</h2>
+							</div>
+						</div>
+
+					{% endif %}
 				</a>
-			</div>
-		{% endfor %}
-	</div>
+			{% endfor %}
+		</div>
 </section>

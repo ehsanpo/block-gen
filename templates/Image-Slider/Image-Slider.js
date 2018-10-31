@@ -1,3 +1,4 @@
+import 'slick-carousel';
 (function($) {
 	$(function() {
 		$(".slider").slick({
