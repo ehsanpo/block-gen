@@ -2,18 +2,21 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const prependFile = require("prepend-file");
-var npmi = require("npmi");
-var path = require("path");
+const npmi = require("npmi");
+const path = require("path");
+const { join } = require('path')
+const { readdirSync, statSync } = require('fs');
 
 const theme_path = "/public_html/theme/";
 const CURR_DIR = process.cwd();
 const copy_to = CURR_DIR + theme_path;
-let CHOICES = fs.readdirSync(`${__dirname}/templates`);
-CHOICES.unshift("js-installer");
+const CHOICES = p => readdirSync(`${__dirname}/templates`).filter(f => statSync(join(`${__dirname}/templates`, f)).isDirectory());
+const red_text = '\x1b[31m';
+const cyan_text = "\x1b[36m";
 
+//Check if we are in right DIR
 if (!fs.existsSync(`${process.cwd()}/public_html`)) {
-	console.log("wrong dir");
-	console.log(`${process.cwd()}/public_html`);
+	console.log(red_text,"Wrong dir! Can not find public_html in this folder");
 	process.exit();
 }
 
@@ -21,38 +24,22 @@ const QUESTIONS = [
 	{
 		name: "project-block",
 		type: "list",
-		message: "What project template would you like to generate?",
+		message: "What Block template would you like to generate?",
 		choices: CHOICES
-	},
-	// {
-	// 	name: "project-name",
-	// 	type: "input",
-	// 	message: "Project name:",
-	// 	validate: function(input) {
-	// 		if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-	// 		else
-	// 			return "Project name may only include letters, numbers, underscores and hashes.";
-	// 	}
-	// }
+	}
 ];
 
 inquirer.prompt(QUESTIONS).then(answers => {
 	const projectChoice = answers["project-block"];
-	//const projectName = answers["project-name"];
 	const templatePath = `${__dirname}/templates/${projectChoice}`;
-
-	if (projectChoice == "js-installer") {
-		check_package_json(projectChoice);
-	} else {
-		createDirectoryContents(templatePath, projectChoice);
-	}
+	_main(templatePath, projectChoice);
 });
 
 function logall(verb) {
 	console.log(verb);
 }
 
-function createDirectoryContents(templatePath, projectChoice) {
+function _main(templatePath, projectChoice) {
 	const filesToCreate = fs.readdirSync(templatePath);
 	file_to_copy =
 		__dirname + "/templates/" + projectChoice + "/" + projectChoice;
@@ -61,14 +48,16 @@ function createDirectoryContents(templatePath, projectChoice) {
 	copyFile(
 		file_to_copy + ".php",
 		copy_to + "blocks/" + projectChoice.toLowerCase() + ".php",
-		logall
+		logall,
+		'Copy PHP'
 	);
 
 	// //copy twig
 	copyFile(
 		file_to_copy + ".twig",
 		copy_to + "/views/blocks/" + projectChoice.toLowerCase() + ".twig",
-		logall
+		logall,
+		'Copy twig'
 	);
 
 	//install scs
@@ -88,7 +77,8 @@ function check_scss(projectChoice, file_to_copy) {
 	copyFile(
 		file_to_copy + ".scss",
 		copy_to + "assets/sass/blocks/" + projectChoice.toLowerCase() + ".scss",
-		logall
+		logall,
+		'Copy Scss'
 	);
 
 	//add css to file main.
@@ -97,7 +87,7 @@ function check_scss(projectChoice, file_to_copy) {
 		'\r\n@import "blocks/' + projectChoice.toLowerCase() + '.scss"; \r\n ',
 		function(err) {
 			if (err) throw err;
-			console.log("Saved!");
+			console.log("Add scss to main file");
 		}
 	);
 }
@@ -108,7 +98,8 @@ function check_js(projectChoice, file_to_copy) {
 		copyFile(
 			file_to_copy + ".js",
 			copy_to + "assets/scripts/" + projectChoice.toLowerCase() + ".js",
-			logall
+			logall,
+			'Copy JS'
 		);
 		// //add js to begening of main file.
 		const js_class = projectChoice.toLowerCase().replace("-", "");
@@ -117,10 +108,8 @@ function check_js(projectChoice, file_to_copy) {
 			`import ${js_class} from "./${projectChoice.toLowerCase()}.js"; \r\n`,
 			function(err) {
 				if (err) {
-					// Error
+					console.log(red_text,'Can copy file');
 				}
-
-				// Success
 				console.log('The "data to prepend" was prepended to file!');
 			}
 		);
@@ -133,29 +122,26 @@ function check_img(projectChoice) {
 	if (fs.existsSync(path)) {
 		let images = fs.readdirSync(path);
 		let img;
-		//console.log(images);
-		//copyFile(source, target, cb)
 		for (var i = 0; i < images.length; i++) {
 			img = path + "/" + images[i];
-			copyFile(img, copy_to + "assets/img/" + images[i], logall);
+			copyFile(img, copy_to + "assets/img/" + images[i], logall, 'Copy image');
 		}
 	}
 }
 
 function check_package_json(projectChoice) {
 	const path = __dirname + "/templates/" + projectChoice + "/package.json";
-
+	projectChoice = projectChoice.toLowerCase();
 	if (fs.existsSync(path)) {
 		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
 		for (var k in obj.dependencies) {
 			install_js_libs(k);
 		}
-		
 
 		//check extras
 		if (obj && obj.extra && typeof obj.extra !== "undefined") {
 			for (var k in obj.extra) {
-				console.log(k);
+			
 				if (k == "scss") {
 					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.scss}`;
 
@@ -164,20 +150,21 @@ function check_package_json(projectChoice) {
 						file_to_copy,
 						copy_to +
 							"assets/sass/blocks/" +
-							projectChoice.toLowerCase() +
+							projectChoice +
 							"-npm.scss",
-						logall
+						logall,
+						'Copy npm scss'
 					);
 
 					//add css to file main.
 					fs.appendFile(
 						copy_to + "assets/sass/main.scss",
 						'\r\n@import "blocks/' +
-							projectChoice.toLowerCase() +
+							projectChoice +
 							'-npm.scss"; \r\n ',
 						function(err) {
 							if (err) throw err;
-							console.log("Saved!");
+							console.log("Copy npm scss");
 						}
 					);
 				} else if (k == "css") {
@@ -188,20 +175,21 @@ function check_package_json(projectChoice) {
 						file_to_copy,
 						copy_to +
 							"assets/sass/blocks/" +
-							projectChoice.toLowerCase() +
+							projectChoice +
 							"-npm.scss",
-						logall
+						logall,
+						'Copy npm css'
 					);
 
 					//add css to file main.
 					fs.appendFile(
 						copy_to + "assets/sass/main.scss",
 						'\r\n@import "blocks/' +
-							projectChoice.toLowerCase() +
+							projectChoice +
 							'-npm.scss"; \r\n ',
 						function(err) {
 							if (err) throw err;
-							console.log("Saved!");
+							console.log("Copy npm css");
 						}
 					);
 				}
@@ -209,10 +197,10 @@ function check_package_json(projectChoice) {
 
 					fs.appendFile(
 						copy_to + "lib/block_style.php",
-						"\r\n add_filter('acf/section/styles/" +projectChoice.toLowerCase() +"', $layout_styles); \r\n ",
+						"\r\n add_filter('acf/section/styles/" +projectChoice +"', $layout_styles); \r\n ",
 						function(err) {
 							if (err) throw err;
-							console.log("Saved!");
+							console.log("Copy npm scss");
 						}
 					);
 				}
@@ -249,7 +237,7 @@ function install_js_libs(name) {
 	});
 }
 
-function copyFile(source, target, cb) {
+function copyFile(source, target, cb, changed) {
 	var cbCalled = false;
 
 	var rd = fs.createReadStream(source);
@@ -261,7 +249,7 @@ function copyFile(source, target, cb) {
 		done(err);
 	});
 	wr.on("close", function(ex) {
-		done();
+		done(changed);
 	});
 	rd.pipe(wr);
 
