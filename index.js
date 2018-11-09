@@ -71,6 +71,13 @@ function _main(templatePath, projectChoice) {
 
 	//copy img folder
 	check_img(projectChoice);
+
+	//Show info file
+	fs.readFile(file_to_copy + '.txt', 'utf8' , function(err, data){
+		 err ? Function("error","throw error")(err) : console.log(cyan_text, data );
+
+	})
+
 }
 function check_scss(projectChoice, file_to_copy) {
 	// //copy scss
