@@ -1,0 +1,10 @@
+## Needs:
+	Image size "body" 
+	
+### Classes:
+.grid
+.grid--2
+.wrapper
+
+### Supports:
+ BG & text color
