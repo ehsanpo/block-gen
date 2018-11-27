@@ -2,8 +2,8 @@
 
 class article_block extends TwigBlock {
 	function __construct() {
-		$this->id = 'article-block';
-		$this->name = 'Posts';
+		$this->id = 'article-standard';
+		$this->name = 'Article Standard';
 
 		parent::__construct();
 	}

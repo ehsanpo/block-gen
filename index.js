@@ -40,6 +40,10 @@ function logall(verb) {
 }
 
 function _main(templatePath, projectChoice) {
+
+
+	copy_block_img(projectChoice);
+
 	const filesToCreate = fs.readdirSync(templatePath);
 	file_to_copy =
 		__dirname + "/templates/" + projectChoice + "/" + projectChoice;
@@ -136,15 +140,30 @@ function check_img(projectChoice) {
 	}
 }
 
+function copy_block_img(projectChoice) {
+	const img = `${__dirname}/templates/${projectChoice}/${projectChoice}.png`;
+
+	console.log(1);
+	copyFile(img, copy_to + "assets/img/blocks/" + projectChoice + '.png' , logall, 'Copy Block image');
+
+}
+
 function check_package_json(projectChoice) {
 	const path = __dirname + "/templates/" + projectChoice + "/package.json";
 	projectChoice = projectChoice.toLowerCase();
 	if (fs.existsSync(path)) {
 		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
 		for (var k in obj.dependencies) {
-			install_js_libs(k);
+			install_js_libs(k,projectChoice);
 		}
-
+	}
+}
+function copy_npm_assets(projectChoice){
+	const path = __dirname + "/templates/" + projectChoice + "/package.json";
+	projectChoice = projectChoice.toLowerCase();
+	if (fs.existsSync(path)) {
+		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
+		
 		//check extras
 		if (obj && obj.extra && typeof obj.extra !== "undefined") {
 			for (var k in obj.extra) {
@@ -215,7 +234,7 @@ function check_package_json(projectChoice) {
 		}
 	}
 }
-function install_js_libs(name) {
+function install_js_libs(name,projectChoice) {
 	var options = {
 		name: name, // your module name
 		version: "latest", // expected version [default: 'latest']
@@ -233,6 +252,7 @@ function install_js_libs(name) {
 				console.log("npm install error");
 			return console.log(err.message);
 		}
+		copy_npm_assets(projectChoice);
 		// installed
 		console.log(
 			options.name +

@@ -1,8 +1,8 @@
 <?php
 class text_block extends TwigBlock {
 	function __construct() {
-		$this->id = "text-block";
-		$this->name = "Text Block";
+		$this->id = "content-text";
+		$this->name = "Text";
 
 		parent::__construct();
 	}

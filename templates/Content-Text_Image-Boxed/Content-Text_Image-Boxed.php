@@ -1,9 +1,9 @@
 <?php
 
-class image_text_block extends TwigBlock {
+class image_text_block_boxed extends TwigBlock {
 	function __construct() {
-		$this->id = "image-text-block";
-		$this->name = "Image & Text";
+		$this->id = "content-text_image-boxed";
+		$this->name = "Image & Text Boxed";
 
 		parent::__construct();
 	}
@@ -205,5 +205,5 @@ class image_text_block extends TwigBlock {
 	}
 }
 
-new image_text_block();
+new image_text_block_boxed();
 

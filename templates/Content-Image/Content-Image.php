@@ -2,7 +2,7 @@
 
 class image_block extends TwigBlock {
 	function __construct() {
-		$this->id = 'image-block';
+		$this->id = 'content-image';
 		$this->name = 'Image';
 
 		parent::__construct();

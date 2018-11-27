@@ -2,8 +2,8 @@
 
 class image_slider extends TwigBlock {
 	function __construct() {
-		$this->id = 'Image-slider';
-		$this->name = 'Image Slider';
+		$this->id = 'hero-slider';
+		$this->name = 'Hero Slider';
 
 		parent::__construct();
 	}
@@ -93,24 +93,6 @@ class image_slider extends TwigBlock {
 					'prepend' => '',
 					'append' => '',
 					'maxlength' => '',
-				),
-				array(
-					'key' => 'field_5bc72f1199e26',
-					'label' => 'Date',
-					'name' => 'date',
-					'_name' => 'date',
-					'type' => 'date_picker',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array(
-						'width' => '50',
-						'class' => '',
-						'id' => '',
-					),
-					'display_format' => 'F j, Y',
-					'return_format' => 'F j, Y',
-					'first_day' => 1,
 				),
 			),
 		);

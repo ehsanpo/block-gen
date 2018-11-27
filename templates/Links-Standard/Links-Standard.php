@@ -2,8 +2,8 @@
 
 class links_block extends TwigBlock {
 	function __construct() {
-		$this->id = "links-block";
-		$this->name = "Links";
+		$this->id = "links-standard";
+		$this->name = "Links Standard";
 
 		parent::__construct();
 	}

@@ -2,8 +2,8 @@
 
 class cta_block extends TwigBlock {
 	function __construct() {
-		$this->id = "cta-block";
-		$this->name = "CTA";
+		$this->id = "cta-standard";
+		$this->name = "CTA Standard";
 
 		parent::__construct();
 	}

@@ -2,8 +2,8 @@
 
 class newsletter_block_mc extends TwigBlock {
 	function __construct() {
-		$this->id = "newsletter-block-mailchimp";
-		$this->name = "Newsletter";
+		$this->id = "cta-newsletter-block-mailchimp";
+		$this->name = "CTA Newsletter";
 
 		parent::__construct();
 	}

@@ -2,7 +2,7 @@
 
 class video_block extends TwigBlock {
 	function __construct() {
-		$this->id = "video-block";
+		$this->id = "video-standard";
 		$this->name = "Video Block";
 
 		parent::__construct();

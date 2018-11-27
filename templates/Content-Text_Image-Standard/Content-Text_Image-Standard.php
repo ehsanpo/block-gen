@@ -1,9 +1,9 @@
 <?php
 
-class cta_block extends TwigBlock {
+class image_text_block extends TwigBlock {
 	function __construct() {
-		$this->id = "cta-block";
-		$this->name = "CTA";
+		$this->id = "content-text_image-standard";
+		$this->name = "Image & Text";
 
 		parent::__construct();
 	}
@@ -30,10 +30,27 @@ class cta_block extends TwigBlock {
 			'mime_types' => '',
 		);
 		$fields[] = array(
-			'key' => 'field_5aa7e7d76d158',
+			'key' => 'field_5afd451c901f4',
+			'label' => 'Image on left',
+			'name' => 'image_on_left',
+			'_name' => 'image_on_left',
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '50%',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => '',
+			'default_value' => 0,
+		);
+		$fields[] = array(
+			'key' => 'field_5afd44ee901f2',
 			'label' => 'Headline',
-			'name' => 'cta_headline',
-			'_name' => 'cta_headline',
+			'name' => 'headline',
+			'_name' => 'headline',
 			'type' => 'text',
 			'instructions' => '',
 			'required' => 0,
@@ -50,12 +67,13 @@ class cta_block extends TwigBlock {
 			'maxlength' => '',
 			'readonly' => 0,
 			'disabled' => 0,
+
 		);
 		$fields[] = array(
-			'key' => 'field_5aa7e82e6d159',
-			'label' => 'Sub headline',
-			'name' => 'cta_subheadline',
-			'name' => 'cta_subheadline',
+			'key' => 'field_5afd4502901f3',
+			'label' => 'Body text',
+			'name' => 'body_text',
+			'_name' => 'body_text',
 			'type' => 'wysiwyg',
 			'instructions' => '',
 			'required' => 0,
@@ -66,32 +84,44 @@ class cta_block extends TwigBlock {
 				'id' => '',
 			),
 			'default_value' => '',
-			'placeholder' => '',
-			'prepend' => '',
-			'append' => '',
-			'maxlength' => '',
-			'readonly' => 0,
-			'disabled' => 0,
 			'tabs' => 'all',
 			'toolbar' => 'full',
 			'media_upload' => 1,
 		);
+		
 		$fields[] = array(
-			'key' => 'field_55a393191488b',
+			'key' => 'field_22a38dd24c498',
+			'label' => 'Link',
+			'name' => 'add_link',
+			'_name' => 'add_link',
+			'type' => 'true_false',
+			'message' => 'Add link(s) to the block?',
+		);
+
+		$fields[] = array(
+			'key' => 'field_22a393191488a',
 			'label' => 'Links',
 			'name' => 'stn_link',
 			'_name' => 'stn_link',
 			'type' => 'repeater',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array (
+				array (
+					array (
+						'field' => 'field_22a38dd24c498',
+						'operator' => '==',
+						'value' => '1',
+					),
+				),
+			),
 			'min' => 1,
 			'max' => '',
 			'layout' => 'block',
 			'button_label' => 'Add another link',
 			'sub_fields' => array (
 				array (
-					'key' => 'field_69a393731488b',
+					'key' => 'field_22a393731488b',
 					'label' => 'Type',
 					'name' => 'link_type',
 					'_name' => 'link_type',
@@ -106,7 +136,7 @@ class cta_block extends TwigBlock {
 					'layout' => 'horizontal',
 				),
 				array (
-					'key' => 'field_69a393a01488c',
+					'key' => 'field_22a393a01488c',
 					'label' => 'Text',
 					'name' => 'link_text',
 					'_name' => 'link_text',
@@ -117,7 +147,7 @@ class cta_block extends TwigBlock {
 					),
 				),
 				array (
-					'key' => 'field_69ffd4e416edb',
+					'key' => 'field_22ffd4e416edb',
 					'label' => 'Internal Page',
 					'name' => 'link_page',
 					'_name' => 'link_page',
@@ -125,7 +155,7 @@ class cta_block extends TwigBlock {
 					'conditional_logic' => array (
 						array (
 							array (
-								'field' => 'field_69a393731488b',
+								'field' => 'field_22a393731488b',
 								'operator' => '==',
 								'value' => 'page',
 							),
@@ -144,7 +174,7 @@ class cta_block extends TwigBlock {
 					'multiple' => 0,
 				),
 				array (
-					'key' => 'field_69a3b2dc137ce',
+					'key' => 'field_22a3b2dc137ce',
 					'label' => 'External URL',
 					'name' => 'link_url',
 					'_name' => 'link_url',
@@ -153,7 +183,7 @@ class cta_block extends TwigBlock {
 					'conditional_logic' => array (
 						array (
 							array (
-								'field' => 'field_69a393731488b',
+								'field' => 'field_22a393731488b',
 								'operator' => '==',
 								'value' => 'url',
 							),
@@ -167,7 +197,6 @@ class cta_block extends TwigBlock {
 				),
 			),
 		);
-
 		
 	}
 
@@ -176,5 +205,5 @@ class cta_block extends TwigBlock {
 	}
 }
 
-new cta_block();
+new image_text_block();
 

@@ -1,16 +1,16 @@
 <?php
 
-class article_block extends TwigBlock {
+class article_block_boxed extends TwigBlock {
 	function __construct() {
-		$this->id = 'article-block';
-		$this->name = 'Posts';
+		$this->id = 'article-boxed';
+		$this->name = 'Article Boxed';
 
 		parent::__construct();
 	}
 	function define(&$fields) {
 
 		$fields[] = array(
-			'key' => 'field_5afd47bf0c397',
+			'key' => 'field_f30b6b21ddc7f',
 			'label' => 'Show',
 			'name' => 'show',
 			'type' => 'radio',
@@ -33,7 +33,7 @@ class article_block extends TwigBlock {
 		);
 
 		$fields[] = array(
-			'key' => 'field_5bd9b054d86cc',
+			'key' => 'field_88e6e8c91c0cd',
 			'label' => 'Post list',
 			'name' => 'post_list',
 			'type' => 'posttype_select',
@@ -55,7 +55,7 @@ class article_block extends TwigBlock {
 		);
 		
 		$fields[] = array(
-			'key' => 'field_5afd48ad0c399',
+			'key' => 'field_abde22aeb2eb9',
 			'label' => 'How many news to show',
 			'name' => 'news_to_show',
 			'type' => 'radio',
@@ -79,7 +79,7 @@ class article_block extends TwigBlock {
 			'layout' => 'horizontal',
 		);
 		$fields[] = array(
-			'key' => 'field_5afd48530c398',
+			'key' => 'field_9d239fc23c35a',
 			'label' => 'Selected news list',
 			'name' => 'selected_news_list',
 			'type' => 'post_object',
@@ -88,7 +88,7 @@ class article_block extends TwigBlock {
 			'conditional_logic' => array (
 				array (
 					array (
-						'field' => 'field_5afd47bf0c397',
+						'field' => 'field_f30b6b21ddc7f',
 						'operator' => '==',
 						'value' => 'select',
 					),
@@ -118,4 +118,4 @@ class article_block extends TwigBlock {
 	}
 }
 
-new article_block();
+new article_block_boxed();

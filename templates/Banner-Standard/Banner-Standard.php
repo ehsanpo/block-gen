@@ -2,8 +2,8 @@
 
 class banner_block extends TwigBlock {
 	function __construct() {
-		$this->id = "banner-block";
-		$this->name = "banner Block";
+		$this->id = "banner-standard";
+		$this->name = "Banner Standard";
 
 		parent::__construct();
 	}

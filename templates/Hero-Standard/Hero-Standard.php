@@ -2,8 +2,8 @@
 
 class hero_block extends TwigBlock {
 	function __construct() {
-		$this->id = "hero-block";
-		$this->name = "Hero";
+		$this->id = "hero-standard";
+		$this->name = "Hero Standard";
 
 		parent::__construct();
 	}
