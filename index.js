@@ -141,10 +141,9 @@ function check_img(projectChoice) {
 }
 
 function copy_block_img(projectChoice) {
-	const img = `${__dirname}/templates/${projectChoice}/${projectChoice}.png`;
 
-	console.log(1);
-	copyFile(img, copy_to + "assets/img/blocks/" + projectChoice + '.png' , logall, 'Copy Block image');
+	const img = `${__dirname}/templates/${projectChoice}/${projectChoice}.png`;
+	copyFile(img, copy_to + "assets/img/blocks/" + projectChoice.toLowerCase() + '.png' , logall, 'Copy Block image');
 
 }
 
