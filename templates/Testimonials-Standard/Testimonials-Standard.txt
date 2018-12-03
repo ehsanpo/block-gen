@@ -1,0 +1,12 @@
+## Needs:
+	@extend %block-pad
+	@include bp-medium
+	$dark;
+	$c1;
+	
+### Classes:
+	.grid--auto-c
+	.wrapper
+
+### Supports:
+

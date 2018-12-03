@@ -1,0 +1,12 @@
+<div class="sponsor-standard-block"> 
+	<div class="wrapper">
+		{% if headline %}
+			<h2>{{headline}}</h2>
+		{% endif %}
+		<div class="grid--auto-c layout{{per_row}}">
+			{% for item in partners %}
+				<img src="{{item.image}}">
+			{% endfor %}
+		</div>
+	</div>
+</div>
