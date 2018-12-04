@@ -2,7 +2,8 @@
 	@extend %block-pad;
 	.itb-text{
 		@include bp-large{
-			padding: 0  0  0 120px;
+			width: 444px;
+			margin-left: auto;
 		}
 	}
 	.image_on_left{
@@ -11,10 +12,10 @@
 			
 			@include bp-large{
 				grid-row-start: 1;
+				max-width: 444px;
+    			margin-left: 0;
 			}
-			@include bp-large{
-				padding: 0  120px  0 0;
-			}
+			
 		}
 	}
 }

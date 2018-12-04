@@ -62,7 +62,7 @@ class text_block extends TwigBlock {
 					'default_value' => '',
 					'tabs' => 'all',
 					'toolbar' => 'full',
-					'media_upload' => 0,
+					'media_upload' => 1,
 				),
 			),
 		);

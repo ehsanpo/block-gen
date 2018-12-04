@@ -23,7 +23,7 @@ class cta_block extends TwigBlock {
 				'class' => '',
 				'id' => '',
 			),
-			'return_format' => 'id',
+			'return_format' => 'url',
 			'library' => 'all',
 			'min_size' => '',
 			'max_size' => '',
