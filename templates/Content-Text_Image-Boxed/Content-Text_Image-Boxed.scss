@@ -1,20 +1,33 @@
 .image-text-block{
-	@extend %block-pad;
 	.itb-text{
-		@include bp-large{
-			padding: 0  0  0 120px;
+		background: #fff;
+		padding: 32px 12px 24px;
+		@include bp-medium{
+			padding: $pad_xl $pad_l  $pad_xl $pad_l;
 		}
+	}
+	.itb-image{
+		background-color: #fff;
+		min-height: 400px;
+		margin-top: 32px;
+		@extend %bg_cover;
+		@include bp-medium{
+			min-height: 0;
+			margin: 0;
+		}
+	}
+	img{
+		display: block;
 	}
 	.image_on_left{
 		.itb-text{
-			grid-row-start: inherit;
-			
-			@include bp-large{
-				grid-row-start: 1;
-			}
-			@include bp-large{
-				padding: 0  120px  0 0;
+			order:-1;
+			@include bp-medium{
+				padding:  $pad_xl $pad_l  $pad_xl $pad_l;
 			}
 		}
+	}
+	.btn{
+		margin-top: 32px;
 	}
 }

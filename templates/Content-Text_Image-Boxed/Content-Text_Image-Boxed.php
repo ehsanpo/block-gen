@@ -206,4 +206,3 @@ class image_text_block_boxed extends TwigBlock {
 }
 
 new image_text_block_boxed();
-

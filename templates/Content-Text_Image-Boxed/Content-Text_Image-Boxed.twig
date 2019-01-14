@@ -1,8 +1,8 @@
 <section class="image-text-block {% if class %}{{class}}{% endif %}">
 	<div class="wrapper">
-		<div class="grid grid--2 grid--no-gap {% if image_on_left %}image_on_left{% endif %}">
-			<div class="itb-image">
-				<img {{image|get_timber_image_responsive('body') }}>
+		<div class="grid--2 {% if image_on_left %}image_on_left{% endif %}">
+			<div class="itb-image lazyload" data-bg="{{image|resize(1400)}}">
+				
 			</div>
 			<div class="itb-text">
 				<h2>{{headline}}</h2>
@@ -13,12 +13,12 @@
 						{% for item in stn_link %}
 							{% if item.link_type == 'url' %}
 								<li>
-									<a href="{{ item.link_url }}" class="btn">{{ item.link_text }}</a>
+									<a href="{{ item.link_url }}" class="btn btn--white">{{ item.link_text }}</a>
 								</li>
 							{% endif %}
 							{% if item.link_type == 'page' %}
 								<li>
-									<a href="{{ item.link_page }}" class="btn">{{ item.link_text }}</a>
+									<a href="{{ item.link_page }}" class="btn btn--white">{{ item.link_text }}</a>
 								</li>
 							{% endif %}
 						{% endfor %}

@@ -1,5 +1,6 @@
 ## Needs:
 	Image size "body" 
+	$pad_xl $pad_l  $pad_xl $pad_l
 	
 ### Classes:
 .grid
