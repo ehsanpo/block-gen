@@ -1,0 +1,12 @@
+## Needs:
+	
+
+### Classes:
+	.wrapper
+
+### Supports:
+	BG & text color
+
+
+
+
