@@ -1,0 +1,32 @@
+<div class="{% if class %} {{class}}{% endif %}">
+	{% if show_filters %}
+		<section class="layout--filter ">
+			<div class="wrapper">
+				<div class="filter-handler">
+						<button class="filter-button showall" ><h3>Alla</h3></button>
+						<button class="filter-button show-cat" ><h3>Kategori<span class="filter-val"></span></h3></button>
+				</div>
+				<div class="filters">
+						<div class="filter-cat styled-select body-large">
+							<div class="grid-container">
+							{% for item in terms %}
+								 <div class="data-filter terms-tag" data-value=".{{item.slug|lower|replace({" " : "-"})|replace({"ö" : "o"})|replace({"ä" : "a"})|replace({"å" : "a"}) }}">{{item.name}}</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
+	<section class="filter-post"> 
+		<div class="wrapper">
+			<div class="grid--auto-c">
+			{% for item in cases %}
+					<a href="{{item.project.link}}" class="{% if item.size %}{{item.size}}{% endif %} case {{item.project.cats}} lazyload" {% if item.project.thumbnail %}data-bg="{{item.project.thumbnail}}" {% endif %}>
+						<h4>{{item.project.post_title}}</h4>
+					</a>
+			{% endfor %}
+			</div>
+		</div>
+	</section>
+</div>
