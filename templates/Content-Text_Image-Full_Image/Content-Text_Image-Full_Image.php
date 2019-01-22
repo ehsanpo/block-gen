@@ -23,7 +23,7 @@ class image_text_block_full extends TwigBlock {
 				'class' => '',
 				'id' => '',
 			),
-			'return_format' => 'id',
+			'return_format' => 'url',
 			'library' => 'all',
 			'min_size' => '',
 			'max_size' => '',
@@ -45,6 +45,9 @@ class image_text_block_full extends TwigBlock {
 			),
 			'message' => '',
 			'default_value' => 0,
+			'ui' => 1,
+			'ui_on_text' => '',
+			'ui_off_text' => '',
 		);
 		$fields[] = array(
 			'key' => 'field_5afd44ee901f2',

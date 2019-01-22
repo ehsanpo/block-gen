@@ -1,20 +1,33 @@
-.image-text-block{
+.image-text-block-full{
 	@extend %block-pad;
-	.itb-text{
-		@include bp-large{
-			padding: 0  0  0 120px;
+	position: relative;
+	.itb-image{
+		@extend %bg_cover;
+		width: 100%;
+		min-height: 300px;
+		@include bp-medium {
+			min-height: 0;
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: -1;
+			width: 100%;
 		}
 	}
-	.image_on_left{
+	.itb-text{
+		width: 50%;
+	}
+	&.image_on_left{
 		.itb-text{
-			grid-row-start: inherit;
-			
-			@include bp-large{
-				grid-row-start: 1;
-			}
-			@include bp-large{
-				padding: 0  120px  0 0;
-			}
+			float: right;
 		}
+	}
+	img{
+		display: block;
+	}
+	.btn{
+		margin-top: 32px;
 	}
 }

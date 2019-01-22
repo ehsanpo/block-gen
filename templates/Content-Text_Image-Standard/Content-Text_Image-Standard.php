@@ -10,7 +10,7 @@ class image_text_block extends TwigBlock {
 
 	function define(&$fields) {
 		$fields[] = array(
-			'key' => 'field_5afd44d0901f1',
+			'key' => 'field_8afd44d0901f1',
 			'label' => 'image',
 			'name' => 'image',
 			'_name' => 'image',
@@ -23,14 +23,14 @@ class image_text_block extends TwigBlock {
 				'class' => '',
 				'id' => '',
 			),
-			'return_format' => 'id',
+			'return_format' => 'url',
 			'library' => 'all',
 			'min_size' => '',
 			'max_size' => '',
 			'mime_types' => '',
 		);
 		$fields[] = array(
-			'key' => 'field_5afd451c901f4',
+			'key' => 'field_8afd451c901f4',
 			'label' => 'Image on left',
 			'name' => 'image_on_left',
 			'_name' => 'image_on_left',
@@ -45,9 +45,12 @@ class image_text_block extends TwigBlock {
 			),
 			'message' => '',
 			'default_value' => 0,
+			'ui' => 1,
+			'ui_on_text' => '',
+			'ui_off_text' => '',
 		);
 		$fields[] = array(
-			'key' => 'field_5afd44ee901f2',
+			'key' => 'field_8afd44ee901f2',
 			'label' => 'Headline',
 			'name' => 'headline',
 			'_name' => 'headline',
@@ -67,10 +70,9 @@ class image_text_block extends TwigBlock {
 			'maxlength' => '',
 			'readonly' => 0,
 			'disabled' => 0,
-
 		);
 		$fields[] = array(
-			'key' => 'field_5afd4502901f3',
+			'key' => 'field_8afd4502901f3',
 			'label' => 'Body text',
 			'name' => 'body_text',
 			'_name' => 'body_text',
@@ -90,7 +92,7 @@ class image_text_block extends TwigBlock {
 		);
 		
 		$fields[] = array(
-			'key' => 'field_22a38dd24c498',
+			'key' => 'field_82a38dd24c498',
 			'label' => 'Link',
 			'name' => 'add_link',
 			'_name' => 'add_link',
@@ -99,7 +101,7 @@ class image_text_block extends TwigBlock {
 		);
 
 		$fields[] = array(
-			'key' => 'field_22a393191488a',
+			'key' => 'field_82a393191488a',
 			'label' => 'Links',
 			'name' => 'stn_link',
 			'_name' => 'stn_link',
@@ -109,7 +111,7 @@ class image_text_block extends TwigBlock {
 			'conditional_logic' => array (
 				array (
 					array (
-						'field' => 'field_22a38dd24c498',
+						'field' => 'field_82a38dd24c498',
 						'operator' => '==',
 						'value' => '1',
 					),
@@ -121,7 +123,7 @@ class image_text_block extends TwigBlock {
 			'button_label' => 'Add another link',
 			'sub_fields' => array (
 				array (
-					'key' => 'field_22a393731488b',
+					'key' => 'field_82a393731488b',
 					'label' => 'Type',
 					'name' => 'link_type',
 					'_name' => 'link_type',
@@ -136,7 +138,7 @@ class image_text_block extends TwigBlock {
 					'layout' => 'horizontal',
 				),
 				array (
-					'key' => 'field_22a393a01488c',
+					'key' => 'field_82a393a01488c',
 					'label' => 'Text',
 					'name' => 'link_text',
 					'_name' => 'link_text',
@@ -147,7 +149,7 @@ class image_text_block extends TwigBlock {
 					),
 				),
 				array (
-					'key' => 'field_22ffd4e416edb',
+					'key' => 'field_82ffd4e416edb',
 					'label' => 'Internal Page',
 					'name' => 'link_page',
 					'_name' => 'link_page',
@@ -155,7 +157,7 @@ class image_text_block extends TwigBlock {
 					'conditional_logic' => array (
 						array (
 							array (
-								'field' => 'field_22a393731488b',
+								'field' => 'field_82a393731488b',
 								'operator' => '==',
 								'value' => 'page',
 							),
@@ -174,7 +176,7 @@ class image_text_block extends TwigBlock {
 					'multiple' => 0,
 				),
 				array (
-					'key' => 'field_22a3b2dc137ce',
+					'key' => 'field_82a3b2dc137ce',
 					'label' => 'External URL',
 					'name' => 'link_url',
 					'_name' => 'link_url',
@@ -183,7 +185,7 @@ class image_text_block extends TwigBlock {
 					'conditional_logic' => array (
 						array (
 							array (
-								'field' => 'field_22a393731488b',
+								'field' => 'field_82a393731488b',
 								'operator' => '==',
 								'value' => 'url',
 							),
