@@ -1,7 +1,7 @@
 <?php
 class post_filter_Block extends TwigBlock {
 	function __construct() {
-		$this->id = "Filter-Post_Filter";
+		$this->id = "filter-post_filter";
 		$this->name = "Post Filter";
 		$this->post_type = array (
 							0 => 'post',  	// <==== Edit For Custom Post
