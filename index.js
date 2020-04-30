@@ -4,19 +4,22 @@ const fs = require("fs");
 const prependFile = require("prepend-file");
 const npmi = require("npmi");
 const path = require("path");
-const { join } = require('path')
-const { readdirSync, statSync } = require('fs');
+const { join } = require("path");
+const { readdirSync, statSync } = require("fs");
 
-const theme_path = "/public_html/theme/";
+const theme_path = "/web/app/themes/Blockpress/";
 const CURR_DIR = process.cwd();
 const copy_to = CURR_DIR + theme_path;
-const CHOICES = p => readdirSync(`${__dirname}/templates`).filter(f => statSync(join(`${__dirname}/templates`, f)).isDirectory());
-const red_text = '\x1b[31m';
+const CHOICES = (p) =>
+	readdirSync(`${__dirname}/templates`).filter((f) =>
+		statSync(join(`${__dirname}/templates`, f)).isDirectory()
+	);
+const red_text = "\x1b[31m";
 const cyan_text = "\x1b[36m";
 
 //Check if we are in right DIR
-if (!fs.existsSync(`${process.cwd()}/public_html`)) {
-	console.log(red_text,"Wrong dir! Can not find public_html in this folder");
+if (!fs.existsSync(`${process.cwd()}/webl`)) {
+	console.log(red_text, "Wrong dir! Can not find web in this folder");
 	process.exit();
 }
 
@@ -25,11 +28,11 @@ const QUESTIONS = [
 		name: "project-block",
 		type: "list",
 		message: "What Block template would you like to generate?",
-		choices: CHOICES
-	}
+		choices: CHOICES,
+	},
 ];
 
-inquirer.prompt(QUESTIONS).then(answers => {
+inquirer.prompt(QUESTIONS).then((answers) => {
 	const projectChoice = answers["project-block"];
 	const templatePath = `${__dirname}/templates/${projectChoice}`;
 	_main(templatePath, projectChoice);
@@ -40,8 +43,6 @@ function logall(verb) {
 }
 
 function _main(templatePath, projectChoice) {
-
-
 	copy_block_img(projectChoice);
 
 	const filesToCreate = fs.readdirSync(templatePath);
@@ -53,7 +54,7 @@ function _main(templatePath, projectChoice) {
 		file_to_copy + ".php",
 		copy_to + "blocks/" + projectChoice.toLowerCase() + ".php",
 		logall,
-		'Copy PHP'
+		"Copy PHP"
 	);
 
 	// //copy twig
@@ -61,7 +62,7 @@ function _main(templatePath, projectChoice) {
 		file_to_copy + ".twig",
 		copy_to + "/views/blocks/" + projectChoice.toLowerCase() + ".twig",
 		logall,
-		'Copy twig'
+		"Copy twig"
 	);
 
 	//install scs
@@ -77,11 +78,11 @@ function _main(templatePath, projectChoice) {
 	check_img(projectChoice);
 
 	//Show info file
-	fs.readFile(file_to_copy + '.txt', 'utf8' , function(err, data){
-		 err ? Function("error","throw error")(err) : console.log(cyan_text, data );
-
-	})
-
+	fs.readFile(file_to_copy + ".txt", "utf8", function (err, data) {
+		err
+			? Function("error", "throw error")(err)
+			: console.log(cyan_text, data);
+	});
 }
 function check_scss(projectChoice, file_to_copy) {
 	// //copy scss
@@ -89,14 +90,14 @@ function check_scss(projectChoice, file_to_copy) {
 		file_to_copy + ".scss",
 		copy_to + "assets/sass/blocks/" + projectChoice.toLowerCase() + ".scss",
 		logall,
-		'Copy Scss'
+		"Copy Scss"
 	);
 
 	//add css to file main.
 	fs.appendFile(
 		copy_to + "assets/sass/main.scss",
 		'\r\n@import "blocks/' + projectChoice.toLowerCase() + '.scss"; \r\n ',
-		function(err) {
+		function (err) {
 			if (err) throw err;
 			console.log("Add scss to main file");
 		}
@@ -110,16 +111,16 @@ function check_js(projectChoice, file_to_copy) {
 			file_to_copy + ".js",
 			copy_to + "assets/scripts/" + projectChoice.toLowerCase() + ".js",
 			logall,
-			'Copy JS'
+			"Copy JS"
 		);
 		// //add js to begening of main file.
 		const js_class = projectChoice.toLowerCase().replace("-", "");
 		prependFile(
 			copy_to + "assets/scripts/main.js",
 			`import ${js_class} from "./${projectChoice.toLowerCase()}.js"; \r\n`,
-			function(err) {
+			function (err) {
 				if (err) {
-					console.log(red_text,'Can copy file');
+					console.log(red_text, "Can copy file");
 				}
 				console.log('The "data to prepend" was prepended to file!');
 			}
@@ -135,16 +136,24 @@ function check_img(projectChoice) {
 		let img;
 		for (var i = 0; i < images.length; i++) {
 			img = path + "/" + images[i];
-			copyFile(img, copy_to + "assets/img/" + images[i], logall, 'Copy image');
+			copyFile(
+				img,
+				copy_to + "assets/img/" + images[i],
+				logall,
+				"Copy image"
+			);
 		}
 	}
 }
 
 function copy_block_img(projectChoice) {
-
 	const img = `${__dirname}/templates/${projectChoice}/${projectChoice}.png`;
-	copyFile(img, copy_to + "assets/img/blocks/" + projectChoice.toLowerCase() + '.png' , logall, 'Copy Block image');
-
+	copyFile(
+		img,
+		copy_to + "assets/img/blocks/" + projectChoice.toLowerCase() + ".png",
+		logall,
+		"Copy Block image"
+	);
 }
 
 function check_package_json(projectChoice) {
@@ -153,20 +162,19 @@ function check_package_json(projectChoice) {
 	if (fs.existsSync(path)) {
 		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
 		for (var k in obj.dependencies) {
-			install_js_libs(k,projectChoice);
+			install_js_libs(k, projectChoice);
 		}
 	}
 }
-function copy_npm_assets(projectChoice){
+function copy_npm_assets(projectChoice) {
 	const path = __dirname + "/templates/" + projectChoice + "/package.json";
 	projectChoice = projectChoice.toLowerCase();
 	if (fs.existsSync(path)) {
 		var obj = JSON.parse(fs.readFileSync(path, "utf8"));
-		
+
 		//check extras
 		if (obj && obj.extra && typeof obj.extra !== "undefined") {
 			for (var k in obj.extra) {
-			
 				if (k == "scss") {
 					file_to_copy = `${CURR_DIR}/node_modules/${obj.extra.scss}`;
 
@@ -178,7 +186,7 @@ function copy_npm_assets(projectChoice){
 							projectChoice +
 							"-npm.scss",
 						logall,
-						'Copy npm scss'
+						"Copy npm scss"
 					);
 
 					//add css to file main.
@@ -187,7 +195,7 @@ function copy_npm_assets(projectChoice){
 						'\r\n@import "blocks/' +
 							projectChoice +
 							'-npm.scss"; \r\n ',
-						function(err) {
+						function (err) {
 							if (err) throw err;
 							console.log("Copy npm scss");
 						}
@@ -203,7 +211,7 @@ function copy_npm_assets(projectChoice){
 							projectChoice +
 							"-npm.scss",
 						logall,
-						'Copy npm css'
+						"Copy npm css"
 					);
 
 					//add css to file main.
@@ -212,18 +220,18 @@ function copy_npm_assets(projectChoice){
 						'\r\n@import "blocks/' +
 							projectChoice +
 							'-npm.scss"; \r\n ',
-						function(err) {
+						function (err) {
 							if (err) throw err;
 							console.log("Copy npm css");
 						}
 					);
-				}
-				else if(k == "stylish"){
-
+				} else if (k == "stylish") {
 					fs.appendFile(
 						copy_to + "lib/block_style.php",
-						"\r\n add_filter('acf/section/styles/" +projectChoice +"', $layout_styles); \r\n ",
-						function(err) {
+						"\r\n add_filter('acf/section/styles/" +
+							projectChoice +
+							"', $layout_styles); \r\n ",
+						function (err) {
 							if (err) throw err;
 							console.log("Copy npm scss");
 						}
@@ -233,7 +241,7 @@ function copy_npm_assets(projectChoice){
 		}
 	}
 }
-function install_js_libs(name,projectChoice) {
+function install_js_libs(name, projectChoice) {
 	var options = {
 		name: name, // your module name
 		version: "latest", // expected version [default: 'latest']
@@ -241,10 +249,10 @@ function install_js_libs(name,projectChoice) {
 		forceInstall: false, // force install if set to true (even if already installed, it will do a reinstall) [default: false]
 		npmLoad: {
 			// npm.load(options, callback): this is the "options" given to npm.load()
-			loglevel: "silent" // [default: {loglevel: 'silent'}]
-		}
+			loglevel: "silent", // [default: {loglevel: 'silent'}]
+		},
 	};
-	npmi(options, function(err, result) {
+	npmi(options, function (err, result) {
 		if (err) {
 			if (err.code === npmi.LOAD_ERR) console.log("npm load error");
 			else if (err.code === npmi.INSTALL_ERR)
@@ -267,14 +275,14 @@ function copyFile(source, target, cb, changed) {
 	var cbCalled = false;
 
 	var rd = fs.createReadStream(source);
-	rd.on("error", function(err) {
+	rd.on("error", function (err) {
 		done(err);
 	});
 	var wr = fs.createWriteStream(target);
-	wr.on("error", function(err) {
+	wr.on("error", function (err) {
 		done(err);
 	});
-	wr.on("close", function(ex) {
+	wr.on("close", function (ex) {
 		done(changed);
 	});
 	rd.pipe(wr);

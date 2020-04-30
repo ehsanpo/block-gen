@@ -1,0 +1,10 @@
+<div class="faq-block"> 
+	<ul>
+		{% for item in fields.questions %}
+		    <li>
+		    	<h3>{{item.question}}</h3>
+				<div>{{item.answer}}</div>
+		    </li>
+		{% endfor %}
+	</ul>
+</div>

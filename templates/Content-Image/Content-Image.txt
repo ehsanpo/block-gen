@@ -1,9 +1,0 @@
-## Needs:
-	$block_pad
-	
-### Classes:
-	.grid--auto-c
-	.wrapper
-
-### Supports:
-	BG & text color

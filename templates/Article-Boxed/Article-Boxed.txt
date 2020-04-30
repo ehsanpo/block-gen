@@ -1,9 +1,0 @@
-## Needs:
-	@extend %block-pad;
-	
-### Classes:
-	.grid--auto-c
-	.wrapper
-
-### Supports:
-	BG & text color
